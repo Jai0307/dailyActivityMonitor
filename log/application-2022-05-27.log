@@ -1,0 +1,21 @@
+2022-05-27T05:44:24-05:00 info: Getting verification code: ", {"email":"abje_sin@yahoo.com"}
+2022-05-27T05:44:24-05:00 info: monitor user email added
+2022-05-27T05:44:24-05:00 info: sending email verification code to abje_sin@yahoo.com
+2022-05-27T05:44:27-05:00 info: Email sent: 250 OK id=1nuXSD-0006cJ-Cp
+2022-05-27T05:52:12-05:00 info: Getting verification code: ", {"email":"abje_sin@yahoo.com"}
+2022-05-27T05:52:12-05:00 info: sending email verification code to abje_sin@yahoo.com
+2022-05-27T05:52:12-05:00 info: Email sent: 250 OK id=1nuXZk-0006ug-Iz
+2022-05-27T05:57:04-05:00 info: Getting verification code: ", {"email":"abje_sin@yahoo.com"}
+2022-05-27T05:57:04-05:00 info: sending email verification code to abje_sin@yahoo.com
+2022-05-27T05:57:05-05:00 info: Email sent: 250 OK id=1nuXeS-00076c-RV
+2022-05-27T05:57:29-05:00 info: Getting verification code: ", {"email":"abje_sin@yahoo.com","verificationcode":"644140"}
+2022-05-27T05:57:29-05:00 info: sending email verification code to abje_sin@yahoo.com
+2022-05-27T05:57:31-05:00 info: Email sent: 250 OK id=1nuXes-00077h-B9
+2022-05-27T05:58:35-05:00 info: registering user: abje_sin@yahoo.com, code: 625876, name:undefined undefined, address: undefined, phone:undefined
+2022-05-27T05:58:35-05:00 info: DAMUSA registration successful: abje_sin@yahoo.com
+2022-05-27T05:58:36-05:00 info: Email sent: 250 OK id=1nuXfw-0007A6-9U
+2022-05-27T06:12:26-05:00 info: registering user: abje_sin@yahoo.com, code: 625876, name:undefined undefined, address: undefined, phone:undefined
+2022-05-27T06:12:26-05:00 info: Invalid verification code
+2022-05-27T06:12:53-05:00 info: registering user: abje_sin@yahoo.com, code: 625876, name:undefined undefined, address: undefined, phone:undefined
+2022-05-27T06:12:53-05:00 info: DAMUSA registration successful: abje_sin@yahoo.com
+2022-05-27T06:12:55-05:00 info: Email sent: 250 OK id=1nuXtm-0007nu-VD

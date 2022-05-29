@@ -10,7 +10,7 @@ res: NextApiResponse
 
         let email = req.body.email;
 
-        await Fields.findOne({email: req.body.email}).then((fieldnames: any) =>{
+        await Fields.find({email: req.body.email}).then((fieldnames: any) =>{
             if(!fieldnames){
                 return res.status(200).json({status:210, msg: "document not found"});
             }

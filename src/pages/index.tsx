@@ -8,10 +8,11 @@ import DatePicker from 'react-datepicker'
 import 'react-datepicker/dist/react-datepicker.css'
 import FieldInput from "../components/FieldInput";
 import MessageModal from "../components/MessageModal";
+import { userContext } from "usercontext";
 
 const Home: NextPage = () => {
 
-  const [fns, setFns] = useState<any>(null);
+  // const [fns, setFns] = useState<any>(null);
   const [recordDate, setRecordDate] = useState<Date | null>(null);
   const [field1, setfield1] = useState('');
   const [field2, setfield2] = useState('');
@@ -35,6 +36,9 @@ const Home: NextPage = () => {
   const [field20, setfield20] = useState('');
   const [dependent, setdependent] = useState('');
 
+  const [monitor, setmonitor] = useState<any>(null);
+  const [monitors, setmonitors] = useState([]);
+
   const [modalheader, setmodalheader] = useState('');
   const [modalmessage, setmodalmessage] = useState('');
   const [modalstate, setmodalstate] = useState(false);
@@ -46,28 +50,31 @@ const Home: NextPage = () => {
   }
 
   const getFieldNames = () => {
-      const config = {
-          headers: { 'Content-Type': 'application/json'},
-      };
+    if(Object.keys(userContext.userValue).length==0) return;
 
-      const body = {
-          email: "jai.singh3705@gmail.com",
-      };
+    let user = JSON.parse(userContext.userValue.toString());
+    const config = {
+        headers: { 'Content-Type': 'application/json'},
+    };
 
-      axios.post("/api/getfieldnames", body, config).then((res:any) => {
-          // console.log(`res ${JSON.stringify(res.data.fieldnames)}`);
-          setFns(res.data.fieldnames);
-      }).catch(error=> {
-          console.log(error)
-      })
-  }
+    const body = {
+        email: Object.keys(user).length==0?"jai.singh3705@gmail.com":user.email,
+    }; 
+
+    axios.post("/api/getfieldnames", body, config).then((res:any) => {
+        // console.log(`res ${JSON.stringify(res.data.fieldnames)}`);
+        setmonitors(res.data.fieldnames);
+    }).catch(error=> {
+        console.log(error)
+    })
+}
 
   useEffect(() => {
       getFieldNames();
       let dt = new Date();
       dt = new Date(dt.getFullYear(), dt.getMonth(), dt.getDate(), 0, 0, 0)
       setRecordDate(dt);
-  }, [])
+  }, [userContext, userContext.userValue])
 
   const clearFields = () => {
     setfield1('');
@@ -95,6 +102,11 @@ const Home: NextPage = () => {
 
   const saveData = () => {
 
+    if(!monitor){
+      openModal("Error", "Select monitor before saving data");
+      return;
+    }
+
     if(dependent==""){
       openModal("Error", "invalid inputs");
       return;
@@ -105,7 +117,8 @@ const Home: NextPage = () => {
     };
 
     const body = {
-        email: "jai.singh3705@gmail.com",
+        email: monitor?monitor.email: "",
+        monitor: monitor?monitor.monitor: "",
         field1: field1,
         field2: field2,
         field3: field3,
@@ -137,10 +150,46 @@ const Home: NextPage = () => {
         openModal("Error", "Failed to save data");
       }
       // clearFields();
-  }).catch(error=> {
-      console.log(error)
-  })
+      }).catch(error=> {
+          console.log(error)
+      })
   }
+
+  const selectMonitor = (monitor: any) => {
+
+    setmonitor(monitor);
+
+    // setfield1(monitor.field1Name);
+    // setfield2(monitor.field2Name); 
+    // setfield3(monitor.field3Name);
+    // setfield4(monitor.field4Name);
+    // setfield5(monitor.field5Name);
+    // setfield6(monitor.field6Name);
+    // setfield7(monitor.field7Name);
+    // setfield8(monitor.field8Name);
+    // setfield9(monitor.field9Name);
+    // setfield10(monitor.field10Name);
+    // setfield11(monitor.field11Name);
+    // setfield12(monitor.field12Name);
+    // setfield13(monitor.field13Name);
+    // setfield14(monitor.field14Name);
+    // setfield15(monitor.field15Name);
+    // setfield16(monitor.field16Name);
+    // setfield17(monitor.field17Name);
+    // setfield18(monitor.field18Name);
+    // setfield19(monitor.field19Name);
+    // setfield20(monitor.field20Name);
+    // setdependent(monitor.dependent);
+  }
+
+  const changeSelectedMonitor = (e: any) => {
+    if(e.target.value==0){
+      setmonitor(null);
+      return;
+    } 
+    selectMonitor(monitors[e.target.value-1])
+  }
+
 
   return (
     <MainContainer>
@@ -154,38 +203,52 @@ const Home: NextPage = () => {
           onChange={(date: Date | null) => setRecordDate(date)}
         />
       </Row>
-      {fns?
+
+      <Select onChange={changeSelectedMonitor}>
+        <option value="0" key={`monitor0`}>--Select Monitor--</option>
+        {
+          monitors.map((val:any, idx) => (
+            
+          <option value={`${idx+1}`}  key={`monitor${idx+1}`}>{val.monitor}</option>                
+
+          ))
+        }
+      </Select>
+
+      <SubHeader>Enter daily data and save</SubHeader>
+
+      {monitor?
         <Row>
-          <FieldInput placeholder={fns.dependent} value={dependent} change={setdependent}/>
+          <FieldInput placeholder={monitor.dependent} value={dependent} change={setdependent}/>
         </Row>
         :<></>
       }
-      {fns?
+      {monitor?
       <Row>
         <Column>
 
-          <FieldInput placeholder={fns.field1Name} value={field1} change={setfield1} />
-          <FieldInput placeholder={fns.field2Name} value={field2} change={setfield2} />
-          <FieldInput placeholder={fns.field3Name} value={field3} change={setfield3} />
-          <FieldInput placeholder={fns.field4Name} value={field4} change={setfield4} />
-          <FieldInput placeholder={fns.field5Name} value={field5} change={setfield5} />
-          <FieldInput placeholder={fns.field6Name} value={field6} change={setfield6} />
-          <FieldInput placeholder={fns.field7Name} value={field7} change={setfield7} />
-          <FieldInput placeholder={fns.field8Name} value={field8} change={setfield8} />
-          <FieldInput placeholder={fns.field9Name} value={field9} change={setfield9} />
-          <FieldInput placeholder={fns.field10Name} value={field10} change={setfield10} />
+          <FieldInput placeholder={monitor.field1Name} value={field1} change={setfield1} />
+          <FieldInput placeholder={monitor.field2Name} value={field2} change={setfield2} />
+          <FieldInput placeholder={monitor.field3Name} value={field3} change={setfield3} />
+          <FieldInput placeholder={monitor.field4Name} value={field4} change={setfield4} />
+          <FieldInput placeholder={monitor.field5Name} value={field5} change={setfield5} />
+          <FieldInput placeholder={monitor.field6Name} value={field6} change={setfield6} />
+          <FieldInput placeholder={monitor.field7Name} value={field7} change={setfield7} />
+          <FieldInput placeholder={monitor.field8Name} value={field8} change={setfield8} />
+          <FieldInput placeholder={monitor.field9Name} value={field9} change={setfield9} />
+          <FieldInput placeholder={monitor.field10Name} value={field10} change={setfield10} />
         </Column>
         <Column>
-          <FieldInput placeholder={`${fns.field11Name}`} value={field11} change={setfield11} />
-          <FieldInput placeholder={`${fns.field12Name}`} value={field12} change={setfield12} />
-          <FieldInput placeholder={`${fns.field13Name}`} value={field13} change={setfield13} />
-          <FieldInput placeholder={`${fns.field14Name}`} value={field14} change={setfield14} />
-          <FieldInput placeholder={`${fns.field15Name}`} value={field15} change={setfield15} />
-          <FieldInput placeholder={`${fns.field16Name}`} value={field16} change={setfield16} />
-          <FieldInput placeholder={`${fns.field17Name}`} value={field17} change={setfield17} />
-          <FieldInput placeholder={`${fns.field18Name}`} value={field18} change={setfield18} />
-          <FieldInput placeholder={`${fns.field19Name}`} value={field19} change={setfield19} />
-          <FieldInput placeholder={`${fns.field20Name}`} value={field20} change={setfield20} />
+          <FieldInput placeholder={`${monitor.field11Name}`} value={field11} change={setfield11} />
+          <FieldInput placeholder={`${monitor.field12Name}`} value={field12} change={setfield12} />
+          <FieldInput placeholder={`${monitor.field13Name}`} value={field13} change={setfield13} />
+          <FieldInput placeholder={`${monitor.field14Name}`} value={field14} change={setfield14} />
+          <FieldInput placeholder={`${monitor.field15Name}`} value={field15} change={setfield15} />
+          <FieldInput placeholder={`${monitor.field16Name}`} value={field16} change={setfield16} />
+          <FieldInput placeholder={`${monitor.field17Name}`} value={field17} change={setfield17} />
+          <FieldInput placeholder={`${monitor.field18Name}`} value={field18} change={setfield18} />
+          <FieldInput placeholder={`${monitor.field19Name}`} value={field19} change={setfield19} />
+          <FieldInput placeholder={`${monitor.field20Name}`} value={field20} change={setfield20} />
         </Column>
         </Row>
         :<></>
@@ -229,6 +292,12 @@ const Header = styled.div`
   font-weight: 700;
 `;
 
+const SubHeader = styled.div`
+  color: #000000;
+  font-size: 18px;
+  font-weight: 700;
+`;
+
 const Input = styled.input`
   padding: 10px;
   background-color: #eee;
@@ -250,7 +319,7 @@ const Button = styled.div`
   font-weight: 700;
   border-radius: 3px;
   box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.25);
-  background-color: #4D2FA2;
+  background-color: #4d4dae;
   min-width: 75px;
   transition: ease 0.5s;
   &:hover {
@@ -258,5 +327,13 @@ const Button = styled.div`
     background-color: #212122;
   }
 `
+const Select = styled.select`
+  padding: 10px;
+  background-color: #eee;
+  border: 1px solid black;
+  margin: 10px;
+  width: 250px;
+  border-radius: 3px;
+`;
 
 export default Home

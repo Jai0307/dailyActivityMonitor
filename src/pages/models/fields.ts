@@ -1,7 +1,8 @@
 import mongoose from "mongoose";
 
 const FieldsSchema = new mongoose.Schema({
-    email:  { type: String, default:"jai.singh3705@gmail.com", required: true, unique: true},
+    email:  { type: String, default:"jai.singh3705@gmail.com", required: true},
+    monitor: {type: String, default: "default", required: true},
     field1Name: { type: String, default: ""},
     field2Name: { type: String, default: ""},
     field3Name: { type: String, default: ""},
@@ -24,6 +25,8 @@ const FieldsSchema = new mongoose.Schema({
     field20Name: { type: String, default: ""},
     dependent: { type: String, default: ""},
 });
+
+FieldsSchema.index({'email': 1, 'monitor': 1}, {unique: true});
 
 const fields = mongoose.models.fields || mongoose.model("fields", FieldsSchema);
 export default fields;

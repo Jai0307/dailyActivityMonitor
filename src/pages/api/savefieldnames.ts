@@ -10,6 +10,7 @@ res: NextApiResponse
 
         let fields = new Fields({
           email: req.body.email,
+          monitor: req.body.monitor,
           field1Name: req.body.field1,
           field2Name: req.body.field2,
           field3Name: req.body.field3,
@@ -33,7 +34,7 @@ res: NextApiResponse
           dependent: req.body.dependent,
         });
 
-        await Fields.findOne({email: req.body.email}).then(async (userfields: any) => {
+        await Fields.findOne({email: req.body.email, monitor:req.body.monitor}).then(async (userfields: any) => {
             if(userfields){
                 userfields.field1Name = req.body.field1;
                 userfields.field2Name = req.body.field2;
@@ -56,14 +57,14 @@ res: NextApiResponse
                 userfields.field19Name = req.body.field19;
                 userfields.field20Name = req.body.field20;
                 userfields.dependent = req.body.dependent;
-                console.log(`userfields ${JSON.stringify(userfields)}`);
+                // console.log(`userfields ${JSON.stringify(userfields)}`);
                 await userfields.update(userfields).then((result:any)=>{
                     console.log(`result1 ${JSON.stringify(result)}`);
                     return res.status(200).json({status:200, msg:"field names updates"})
                 })
             }else{
                 await fields.save().then((result: any) =>{
-                    console.log(`result ${JSON.stringify(result)}`);
+                    // console.log(`result ${JSON.stringify(result)}`);
                     return res.status(200).json({status:200, msg:"field names updates"})
                 }).catch((error:any) => {
                     console.log(`error ${JSON.stringify(error)}`);

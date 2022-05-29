@@ -69,7 +69,7 @@ const Button = styled.div`
   font-weight: 700;
   border-radius: 3px;
   box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.25);
-  background-color: #4D2FA2;
+  background-color: #4d4dae;
   min-width: 75px;
   transition: ease 0.5s;
   &:hover {

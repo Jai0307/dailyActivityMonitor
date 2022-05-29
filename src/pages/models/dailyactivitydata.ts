@@ -2,6 +2,7 @@ import mongoose from "mongoose";
 
 const DailyActivityDataSchema = new mongoose.Schema({
     email:  { type: String, default:"jai.singh3705@gmail.com", required: true},
+    monitor: {type: String, default:"default", required: true},
     field1Value: { type: String, default: ""},
     field2Value: { type: String, default: ""},
     field3Value: { type: String, default: ""},
@@ -26,7 +27,7 @@ const DailyActivityDataSchema = new mongoose.Schema({
     recordDate: { type: Date, default: Date.now}
 });
 
-DailyActivityDataSchema.index({'email': 1, 'recordDate': 1}, {unique: true});
+DailyActivityDataSchema.index({'email': 1, 'monitor':1, 'recordDate': 1}, {unique: true});
 
 const dailyactivitydata = mongoose.models.dailyactivitydata || mongoose.model("dailyactivitydata", DailyActivityDataSchema);
 export default dailyactivitydata;

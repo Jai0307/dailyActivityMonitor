@@ -16,7 +16,7 @@ const nextConfig = {
       path: false,
     };
 
-    return config;
+    return config; 
   },
 }
 

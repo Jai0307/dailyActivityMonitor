@@ -6,10 +6,14 @@ export default async function handler(
 req: NextApiRequest,
 res: NextApiResponse
 ) {
+
+    console.log(`req.body ${JSON.stringify(req.body)}`);
+
     await connectToDatabase().then(async ()=>{
 
         let data = new DailyData({
           email: req.body.email,
+          monitor: req.body.monitor,
           field1Value: req.body.field1,
           field2Value: req.body.field2,
           field3Value: req.body.field3,
@@ -30,7 +34,7 @@ res: NextApiResponse
           field18Value: req.body.field18,
           field19Value: req.body.field19,
           field20Value: req.body.field20,
-          dependent: req.body.dependent,
+          dependentValue: req.body.dependent,
           recordDate: req.body.recordDate,
         });
 

@@ -3,7 +3,7 @@ import type { NextApiRequest, NextApiResponse } from 'next'
 import jwt from 'jsonwebtoken';
 import getConfig from 'next/config';
 const { serverRuntimeConfig } = getConfig();
-import User from '../models/users';
+import User from '../../models/users';
 import bcrypt from 'bcryptjs'
 import connectToDatabase from './mongodb';
 

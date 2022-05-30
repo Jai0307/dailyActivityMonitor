@@ -1,6 +1,6 @@
 import type { NextApiRequest, NextApiResponse } from 'next'
 import connectToDatabase from './mongodb';
-import DailyData from '../models/dailyactivitydata';
+import DailyData from '../../models/dailyactivitydata';
 
 export default async function handler(
 req: NextApiRequest,

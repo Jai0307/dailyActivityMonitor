@@ -1,5 +1,5 @@
 import type { NextApiRequest, NextApiResponse } from 'next'
-import User from '../models/users'
+import User from '../../models/users'
 import bcrypt from 'bcryptjs'
 import connectToDatabase from './mongodb';
 import { sendEmailVerificationCode } from '../../utils/nodeSendEmail';

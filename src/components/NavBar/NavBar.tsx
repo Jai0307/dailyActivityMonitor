@@ -6,7 +6,6 @@ import Menu from '../../assets/menu.png';
 import Image from 'next/image';
 import { userContext } from "usercontext"
 import MenuButton from './MenuButton';
-import Router from 'next/router';
 
 const Navbar: FC = props => {
   const [user, setUser] = useState<any>(null);
@@ -54,7 +53,10 @@ const Navbar: FC = props => {
               {user && user.status==200?
 
                 <MenuLink key={`menulogout`} link={'/logout'} text={'Logout'} ></MenuLink>:
-                <MenuLink key={`menulogin`} link={'/login'} text={'Login'} ></MenuLink>
+                <>
+                  <MenuLink key={`menuregister`} link={'/register'} text={'Register'} ></MenuLink>
+                  <MenuLink key={`menulogin`} link={'/login'} text={'Login'} ></MenuLink>
+                </>
 
               }
             </MobileMenuContainer>
@@ -68,7 +70,10 @@ const Navbar: FC = props => {
               {user && user.status==200?
 
                 <MenuButton key={`menulogout`} text={'Logout'} handleClick={logout}></MenuButton>:
-                <MenuLink key={`menulogin`} link={'/login'} text={'Login'} ></MenuLink>
+                <>
+                  <MenuLink key={`menuregister`} link={'/register'} text={'Register'} ></MenuLink>
+                  <MenuLink key={`menulogin`} link={'/login'} text={'Login'} ></MenuLink>
+                </>
 
               }
             </MenuContainer>

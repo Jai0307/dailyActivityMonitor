@@ -47,7 +47,7 @@ const Settings: NextPage = (props) => {
     }
 
     const getFieldNames = () => {
-        if(Object.keys(userContext.userValue).length==0) return;
+      if(Object.keys(userContext.userValue).length==0) return;
         let user = JSON.parse(userContext.userValue.toString());
         const config = {
             headers: { 'Content-Type': 'application/json'},
@@ -67,7 +67,7 @@ const Settings: NextPage = (props) => {
 
     useEffect(() => {
       getFieldNames();
-    }, [userContext, userContext.userValue])
+    }, [])
 
     useEffect(() => {
     }, [monitors])
@@ -127,6 +127,10 @@ const Settings: NextPage = (props) => {
     }
 
     const createMonitor = () => {
+      if(Object.keys(userContext.userValue).length==0){
+        openModal("Error", "Login or register before creating monitor.");
+        return;
+      }
       if(newmonitor==""){
         openModal("Error", "Monitor name cannot be empty");
         return;
@@ -218,39 +222,36 @@ const Settings: NextPage = (props) => {
           </Column>
           <Row>
               <Column>
-                  <Input placeholder='field1' value={field1} onChange={(e) => setfield1(e.target.value)}/>
-                  <Input placeholder='field2' value={field2} onChange={(e) => setfield2(e.target.value)}/>
-                  <Input placeholder='field3' value={field3} onChange={(e) => setfield3(e.target.value)}/>
-                  <Input placeholder='field4' value={field4} onChange={(e) => setfield4(e.target.value)}/>
-                  <Input placeholder='field5' value={field5} onChange={(e) => setfield5(e.target.value)}/>
-                  <Input placeholder='field6' value={field6} onChange={(e) => setfield6(e.target.value)}/>
-                  <Input placeholder='field7' value={field7} onChange={(e) => setfield7(e.target.value)}/>
-                  <Input placeholder='field8' value={field8} onChange={(e) => setfield8(e.target.value)}/>
-                  <Input placeholder='field9' value={field9} onChange={(e) => setfield9(e.target.value)}/>
-                  <Input placeholder='field10' value={field10} onChange={(e) => setfield10(e.target.value)}/>
-                  <Input placeholder='field11' value={field11} onChange={(e) => setfield11(e.target.value)}/>
-                  </Column>
-                  <Column>
-                  <Input placeholder='field12' value={field12} onChange={(e) => setfield12(e.target.value)}/>
-                  <Input placeholder='field13' value={field13} onChange={(e) => setfield13(e.target.value)}/>
-                  <Input placeholder='field14' value={field14} onChange={(e) => setfield14(e.target.value)}/>
-                  <Input placeholder='field15' value={field15} onChange={(e) => setfield15(e.target.value)}/>
-                  <Input placeholder='field16' value={field16} onChange={(e) => setfield16(e.target.value)}/>
-                  <Input placeholder='field17' value={field17} onChange={(e) => setfield17(e.target.value)}/>
-                  <Input placeholder='field18' value={field18} onChange={(e) => setfield18(e.target.value)}/>
-                  <Input placeholder='field19' value={field19} onChange={(e) => setfield19(e.target.value)}/>
-                  <Input placeholder='field20' value={field20} onChange={(e) => setfield20(e.target.value)}/>
-                  
-                  </Column>
-                  <Column>
-
-                  <SubHeader style={{alignSelf:"center"}}>Dependent Variable</SubHeader>
-                  
-                  <Input placeholder='dependent' value={dependent} onChange={(e) => setdependent(e.target.value)}/>
-
-
+                <Input placeholder='field1' value={field1} onChange={(e) => setfield1(e.target.value)}/>
+                <Input placeholder='field2' value={field2} onChange={(e) => setfield2(e.target.value)}/>
+                <Input placeholder='field3' value={field3} onChange={(e) => setfield3(e.target.value)}/>
+                <Input placeholder='field4' value={field4} onChange={(e) => setfield4(e.target.value)}/>
+                <Input placeholder='field5' value={field5} onChange={(e) => setfield5(e.target.value)}/>
+                <Input placeholder='field6' value={field6} onChange={(e) => setfield6(e.target.value)}/>
+                <Input placeholder='field7' value={field7} onChange={(e) => setfield7(e.target.value)}/>
+                <Input placeholder='field8' value={field8} onChange={(e) => setfield8(e.target.value)}/>
+                <Input placeholder='field9' value={field9} onChange={(e) => setfield9(e.target.value)}/>
+                <Input placeholder='field10' value={field10} onChange={(e) => setfield10(e.target.value)}/>
+                <Input placeholder='field11' value={field11} onChange={(e) => setfield11(e.target.value)}/>
               </Column>
               <Column>
+                <Input placeholder='field12' value={field12} onChange={(e) => setfield12(e.target.value)}/>
+                <Input placeholder='field13' value={field13} onChange={(e) => setfield13(e.target.value)}/>
+                <Input placeholder='field14' value={field14} onChange={(e) => setfield14(e.target.value)}/>
+                <Input placeholder='field15' value={field15} onChange={(e) => setfield15(e.target.value)}/>
+                <Input placeholder='field16' value={field16} onChange={(e) => setfield16(e.target.value)}/>
+                <Input placeholder='field17' value={field17} onChange={(e) => setfield17(e.target.value)}/>
+                <Input placeholder='field18' value={field18} onChange={(e) => setfield18(e.target.value)}/>
+                <Input placeholder='field19' value={field19} onChange={(e) => setfield19(e.target.value)}/>
+                <Input placeholder='field20' value={field20} onChange={(e) => setfield20(e.target.value)}/>
+              </Column>
+              <Column>
+
+                <SubHeader style={{alignSelf:"center"}}>Dependent Variable</SubHeader>
+                
+                <Input placeholder='dependent' value={dependent} onChange={(e) => setdependent(e.target.value)}/>
+
+
               </Column>
           </Row>
         </MainContainer>

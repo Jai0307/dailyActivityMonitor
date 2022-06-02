@@ -34,9 +34,8 @@ const Register: React.FC = props => {
         password: password
     }
     axios.post("/api/registeruser", body, config).then((res:any) => {
-      console.log(`res ${JSON.stringify(res.data)}`);
       if(res.data.status==200){
-          Router.push("/");
+          Router.push("/login");
         }else{
           openModal("Error", res.data.msg);
       }

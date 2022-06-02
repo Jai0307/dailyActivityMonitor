@@ -26,9 +26,9 @@ function registeruser(userinfo:any){
     return userInfo;
 }
 
-function login(email:any, password:any) {
+async function login(email:any, password:any) {
 
-    return axios.post(`${baseUrl}/authenticateuser`, { email, password })
+    return await axios.post(`${baseUrl}/authenticateuser`, { email, password })
         .then((res:any) => {
             // publish user to subscribers and store in local storage to stay logged in between page refreshes
             userSubject.next(JSON.stringify(res.data));

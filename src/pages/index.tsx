@@ -51,7 +51,6 @@ const Home: NextPage = () => {
 
   const getFieldNames = () => {
     if(Object.keys(userContext.userValue).length==0) return;
-
     let user = JSON.parse(userContext.userValue.toString());
     const config = {
         headers: { 'Content-Type': 'application/json'},
@@ -67,14 +66,14 @@ const Home: NextPage = () => {
     }).catch(error=> {
         console.log(error)
     })
-}
+  }
 
   useEffect(() => {
       getFieldNames();
       let dt = new Date();
       dt = new Date(dt.getFullYear(), dt.getMonth(), dt.getDate(), 0, 0, 0)
       setRecordDate(dt);
-  }, [userContext, userContext.userValue])
+  }, [])
 
   const clearFields = () => {
     setfield1('');
@@ -156,30 +155,7 @@ const Home: NextPage = () => {
   }
 
   const selectMonitor = (monitor: any) => {
-
     setmonitor(monitor);
-
-    // setfield1(monitor.field1Name);
-    // setfield2(monitor.field2Name); 
-    // setfield3(monitor.field3Name);
-    // setfield4(monitor.field4Name);
-    // setfield5(monitor.field5Name);
-    // setfield6(monitor.field6Name);
-    // setfield7(monitor.field7Name);
-    // setfield8(monitor.field8Name);
-    // setfield9(monitor.field9Name);
-    // setfield10(monitor.field10Name);
-    // setfield11(monitor.field11Name);
-    // setfield12(monitor.field12Name);
-    // setfield13(monitor.field13Name);
-    // setfield14(monitor.field14Name);
-    // setfield15(monitor.field15Name);
-    // setfield16(monitor.field16Name);
-    // setfield17(monitor.field17Name);
-    // setfield18(monitor.field18Name);
-    // setfield19(monitor.field19Name);
-    // setfield20(monitor.field20Name);
-    // setdependent(monitor.dependent);
   }
 
   const changeSelectedMonitor = (e: any) => {
@@ -190,12 +166,11 @@ const Home: NextPage = () => {
     selectMonitor(monitors[e.target.value-1])
   }
 
-
   return (
     <MainContainer>
       <MessageModal header={modalheader} message={modalmessage} state={modalstate} handleClose={()=> setmodalstate(false)} />
         <Column>
-      <Header>Daily activity log</Header>
+      <Header>Daily activity logger</Header>
       <Row style={{margin:"10px 0", zIndex:1}}>
         <DatePicker
           dateFormat="MM/dd/yy"
@@ -253,7 +228,6 @@ const Home: NextPage = () => {
         </Row>
         :<></>
         }
-
 
         <Button onClick={saveData}>Save</Button>
         </Column>

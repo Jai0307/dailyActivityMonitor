@@ -23,12 +23,12 @@ export default async function handler(
       const {email, password} = req.body;
 
       await connectToDatabase().then(async ()=>{
-        await User.findOne({email: email}).then((user:any) =>{
+        await User.findOne({email: email}).then( async (user:any) =>{
           if(!user){
             console.log(`Login error user not found ${email}`);
             throw 'User not found';
           }
-          bcrypt
+          await bcrypt
             .compare(password, user.password)
             .then((isMatch: any) => {
                 if (!isMatch) return res.status(200).json({ status:210, msg: 'Invalid credential' })

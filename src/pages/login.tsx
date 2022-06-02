@@ -36,13 +36,18 @@ const LoginPage: NextPage = (props) => {
       }
 
     const submit = async () => {
+      try{
         const user = await userContext.login(email, password);
-        // console.log(`user ${(JSON.parse(user))}`);
         if(user.status==200){
             Router.push("/")
             return;
         }
         openModal("Login failed", "Invalid credentials")
+      }catch(error){
+        console.log(`error ${error}`);
+        openModal("Login failed", "Invalid credentials")
+
+      }
     }
 
   return (

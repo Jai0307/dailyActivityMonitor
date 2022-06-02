@@ -55,6 +55,14 @@ export const formatDollarDigits = (amount: any, digitsafter: any) => {
     return formatter.format(amount)
 }
 
+export const formatDateStr = (dtStr: string, stringformat: string) => {
+    let strformat = ''
+    let dt = new Date(dtStr);
+    for (let i = 0; i < stringformat.length; i++)
+        strformat += char2num(dt, stringformat[i])
+    return strformat
+}
+
 export const formatDate = (dt: Date, stringformat: string) => {
     let strformat = ''
     for (let i = 0; i < stringformat.length; i++)
